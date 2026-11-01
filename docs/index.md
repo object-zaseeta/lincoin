@@ -32,6 +32,7 @@ GitHub で公開しながら進める(コミットログは英語)。
 
 ## 手元のファイル
 
+- `README.md` — GitHub の入口。目的・いまできること・ロードマップ・完成の定義
 - `vision.md` — なぜ作るか・完成の定義・反証条件
 - `ai-native-language-design.md` — 設計判断の記録(決定・理由・却下案)
 - `language-spec-v0.1.md` — 言語仕様ドラフト
