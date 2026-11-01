@@ -1,0 +1,4 @@
+# Local session/tooling state (not part of the project)
+.remember/
+.claude/
+.DS_Store
