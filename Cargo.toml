@@ -1,0 +1,18 @@
+[package]
+name = "lincoin"
+version = "0.0.1"
+edition = "2024"
+description = "A programming language written by AI and verified by machines (phase 1 interpreter)"
+license = "MIT"
+publish = false
+
+[[bin]]
+name = "lang"
+path = "src/main.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+serde_json = "1"

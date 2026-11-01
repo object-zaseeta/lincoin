@@ -387,13 +387,15 @@ GitHub で公開しながら進める(コミットログは英語)。</p></heade
 <li>完成条件(エンドポイント)を測定可能な3条件に改訂し、測り方を固定した(11-01)</li>
 <li>v1.0 の射程は CLI ツール・データ処理・計算カーネル。汎用化は完成後(11-01)</li>
 <li>独立 Git リポジトリとして GitHub で公開していく。コミットログは英語(11-01)</li>
+<li>ステップ 0「固定式の電卓」完了。<code>lang run</code> が Int32 の ANF を実行し、オーバーフローと 0 除算で JSON エラーを返して止まる(11-01)</li>
+<li>終了コードは 0 = 完走、1 = 止まった、2 = コンパイル不可、64 = 使い方の誤り(11-01)</li>
 <li>計算モデルは純粋・正格・静的型の関数型。正本は型付き ANF(10-28)</li>
 <li>メモリは領域推論主体、検証は篩型+SMT、副作用はケイパビリティ渡し(10-28)</li>
 </ul></section>
 <section id="次にやること"><h2>次にやること</h2>
 <ul>
-<li>GitHub リモートの作成と push(ユーザー)</li>
-<li>フェーズ1: 極小のコア(ステップ0「固定式の電卓」)の実装</li>
+<li>GitHub リモートの登録と push(ユーザー。リポジトリは <a href="https://github.com/object-zaseeta/lincoin">https://github.com/object-zaseeta/lincoin</a> に作成済み)</li>
+<li>ステップ 1「逆ポーランド電卓」: <code>let</code>、関数定義・呼び出し、再帰(階乗・フィボナッチ)</li>
 </ul></section>
 <section id="決まっていないこと"><h2>決まっていないこと</h2>
 <ul>
@@ -416,7 +418,7 @@ GitHub で公開しながら進める(コミットログは英語)。</p></heade
 <td><a href="grill/2026-11-01-endpoint-clarification.html">エンドポイント定義: 完成条件の物差しを固定し、4条件を測定可能な3条件に改訂した</a></td>
 <td><span class="badge badge-green">最新</span></td>
 <td>第 1 版</td>
-<td>2026-11-01 09:36</td>
+<td>2026-11-01 10:11</td>
 <td>合意済み</td>
 </tr>
 </tbody>
@@ -426,7 +428,8 @@ GitHub で公開しながら進める(コミットログは英語)。</p></heade
 <li><code>vision.md</code> — なぜ作るか・完成の定義・反証条件</li>
 <li><code>ai-native-language-design.md</code> — 設計判断の記録(決定・理由・却下案)</li>
 <li><code>language-spec-v0.1.md</code> — 言語仕様ドラフト</li>
-</ul></section></div></div><p class="footer">docs/index.md · 2026-11-01 09:36</p>
+<li><code>src/</code> — Rust 製インタプリタ(<code>cargo test</code> で 32 本のテスト)。<code>examples/*.lang</code> が各ステップの題材</li>
+</ul></section></div></div><p class="footer">docs/index.md · 2026-11-01 10:36</p>
 </main>
 <script>
 (() => {

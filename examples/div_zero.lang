@@ -1,0 +1,11 @@
+program div_zero
+  requires []
+  doc "0 で割って止まる"
+{
+  fn main() -> Int32
+  {
+    %z = sub 1 1
+    %q = div 5 %z
+    ret %q
+  }
+}

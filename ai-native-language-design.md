@@ -490,7 +490,36 @@ C に書かせると、人間はコードを読めない量になり、動作確
 
 (ステップ完了ごとに、実行結果・速度表・学んだことを追記する)
 
-- ステップ 0: 未着手
+- ステップ 0(2026-11-01): **完了**。Rust 製インタプリタ `lang run` が付録 A の固定式電卓を実行し、オーバーフローと 0 除算で構造化エラー(§12.2)を返して止まる。
+
+  ```
+  $ lang run examples/calc.lang
+  85
+
+  $ lang run examples/overflow.lang
+  {"kind":"overflow","location":{"file":"examples/overflow.lang","fn":"main","line":7,"col":10},"expected":"Int32","actual":"add 2147483647 1","suggestion":"..."}
+  (exit 1)
+
+  $ lang run examples/div_zero.lang
+  {"kind":"division_by_zero","location":{"file":"examples/div_zero.lang","fn":"main","line":8,"col":10},"expected":"Int32 where x != 0","actual":"div 5 0","suggestion":"..."}
+  (exit 1)
+
+  $ lang run examples/syntax_error.lang
+  {"kind":"syntax_error","location":{"file":"examples/syntax_error.lang","line":4,"col":13},"expected":"'->'","actual":"Int32"}
+  (exit 2)
+  ```
+
+  - 実装: `src/lexer.rs`(字句)→ `src/parser.rs`(§16 EBNF のうち `program` / `fn` / ANF 本体)→ `src/interp.rs`(Int32 の `add sub mul div rem neg`)→ `src/error.rs`(§12.2 の JSON)。テスト 32 本(ユニット 26 + CLI 6)、`cargo test` / `cargo clippy` / `cargo fmt --check` がすべて通る
+  - 決めたこと:
+    - 終了コード: 0 = 完走、1 = プログラムが止まった(オーバーフロー・0 除算・契約違反)、2 = コンパイルできない(構文・入出力)、64 = コマンドラインの誤り(EX_USAGE)
+    - エラー JSON は stderr、結果は stdout。AI が結果とエラーを別々に読めるようにする
+    - `actual` には評価済みの命令(`div 5 0`)を入れる。変数名ではなく値を見せた方が、AI が反例として扱いやすい
+    - ステップ 0 の型は Int32 のみ。リテラルは Int32 として読み、範囲外は `literal_out_of_range` で止める(§3.1 の「文脈から型が決まる」は型検査器を入れるステップ 2〜3 で実装)
+    - `example` 句は構文解析して AST に保持するが実行しない(ステップ 4 で実行)
+    - 0 除算は実行時エラーとして止める(型で禁止するのはステップ 5 の篩型+Z3 から)
+  - 学んだこと:
+    - 「1 行 1 命令」(§2.1)は構文で守れる。予約語をオペランドにしない規則を入れるだけで `%1 = add 1 2 ret %1` を `expected: end of line` として弾けた
+    - 字句解析器が空行とコメント行を 1 つの改行トークンに畳むと、構文解析器は改行を「命令の終わり」としてだけ扱えばよく、EBNF との差が小さい
 
 ---
 

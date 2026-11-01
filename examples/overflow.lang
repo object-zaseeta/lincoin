@@ -1,0 +1,10 @@
+program overflow
+  requires []
+  doc "Int32 の上限を超えて止まる"
+{
+  fn main() -> Int32
+  {
+    %1 = add 2147483647 1
+    ret %1
+  }
+}
